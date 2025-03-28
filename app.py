@@ -1,5 +1,5 @@
 import streamlit as st
-
+import os  # أضف هذا الاستيراد
 
 def calculate(num1, num2, operation):
     """Perform calculation based on selected operation"""
@@ -15,32 +15,27 @@ def calculate(num1, num2, operation):
             return "Error: Cannot divide by zero"
         return num1 / num2
 
-
 def main():
     # Set page title and header
     st.title("🧮 Simple Calculator")
-
     # Input for first number
     num1 = st.number_input("Enter first number", value=0.0, format="%.2f")
-
     # Operation selection
     operation = st.selectbox(
         "Select operation",
         ['Add', 'Subtract', 'Multiply', 'Divide']
     )
-
     # Input for second number
     num2 = st.number_input("Enter second number", value=0.0, format="%.2f")
-
     # Calculate button
     if st.button("Calculate"):
         # Perform calculation
         result = calculate(num1, num2, operation)
-
         # Display result
         st.success(f"Result: {result}")
 
-
 # Run the app
 if __name__ == "__main__":
-    main()
+    main()  # استدعاء الدالة main
+    port = int(os.environ.get("PORT", 8501))
+    st.run(port=port, host='0.0.0.0')
